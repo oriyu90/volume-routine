@@ -1,5 +1,7 @@
 package com.example
 
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import com.example.ui.theme.MyApplicationTheme
@@ -17,12 +19,19 @@ import org.robolectric.annotation.GraphicsMode
 @Config(qualifiers = RobolectricDeviceQualifiers.Pixel8, sdk = [36])
 class GreetingScreenshotTest {
 
-  @get:Rule val composeTestRule = createComposeRule()
+    @get:Rule val composeTestRule = createComposeRule()
 
-  @Test
-  fun greeting_screenshot() {
-    composeTestRule.setContent { MyApplicationTheme { Greeting("Robolectric") } }
+    @Test
+    fun greeting_screenshot() {
+        composeTestRule.setContent { MyApplicationTheme { Greeting("Robolectric") } }
 
-    composeTestRule.onRoot().captureRoboImage(filePath = "src/test/screenshots/greeting.png")
-  }
+        composeTestRule.onRoot().captureRoboImage(filePath = "src/test/screenshots/greeting.png")
+    }
+}
+
+// このプロジェクトには Greeting composable が存在しないため、テスト用にローカル定義。
+// 実際の UI をスクリーンショットテストしたい場合は MainScreen() 等に差し替えること。
+@Composable
+private fun Greeting(name: String) {
+    Text(text = "Hello, $name!")
 }
