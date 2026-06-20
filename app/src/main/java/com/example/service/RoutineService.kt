@@ -98,13 +98,30 @@ class RoutineService : Service() {
             val routines = Graph.repository.getEnabledRoutinesSync()
             routines.filter { it.triggerType == "TIME" }.forEach { routine ->
                 val routineDays = routine.daysOfWeek.split(",").mapNotNull { it.toIntOrNull() }
-                if (routineDays.contains(dayOfWeek) && routine.hour == hour && routine.minute == minute) {
+                
+                // Trigger Start
+                if (!routine.isActive && routineDays.contains(dayOfWeek) && routine.hour == hour && routine.minute == minute) {
                     val currentTs = System.currentTimeMillis()
-                    // Avoid duplicate triggers in the same minute
+                    // Avoid duplicate triggers
                     if (currentTs - routine.lastTriggeredTs > 60_000) {
+                        val audioManager = getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+                        val currentRingerMode = audioManager.ringerMode
+                        val prevSilent = currentRingerMode == android.media.AudioManager.RINGER_MODE_SILENT || currentRingerMode == android.media.AudioManager.RINGER_MODE_VIBRATE
+                        val prevMedia = audioManager.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
+                        val prevAlarm = audioManager.getStreamVolume(android.media.AudioManager.STREAM_ALARM)
+                        val prevRing = audioManager.getStreamVolume(android.media.AudioManager.STREAM_RING)
+
                         RoutineActionHandler.executeRoutine(this@RoutineService, routine)
-                        Graph.repository.update(routine.copy(lastTriggeredTs = currentTs))
+                        Graph.repository.update(routine.copy(lastTriggeredTs = currentTs, isActive = true, previousIsSilentMode = prevSilent, previousMediaVolume = prevMedia, previousAlarmVolume = prevAlarm, previousRingtoneVolume = prevRing))
                     }
+                }
+                
+                // Trigger End
+                if (routine.isActive && routine.hasEndTime && routine.endHour == hour && routine.endMinute == minute) {
+                    if (routine.revertOnEnd) {
+                        RoutineActionHandler.executeRoutine(this@RoutineService, routine, isReverting = true)
+                    }
+                    Graph.repository.update(routine.copy(isActive = false))
                 }
             }
         }
@@ -121,12 +138,31 @@ class RoutineService : Service() {
 
             val routines = Graph.repository.getEnabledRoutinesSync()
             routines.filter { it.triggerType == "WIFI" }.forEach { routine ->
-                if (routine.ssid == ssid && ssid.isNotBlank() && ssid != "<unknown ssid>") {
+                val isConnectedToTarget = routine.ssid == ssid && ssid.isNotBlank() && ssid != "<unknown ssid>"
+                
+                if (!routine.isActive && isConnectedToTarget) {
                     val currentTs = System.currentTimeMillis()
-                    // Prevent spamming when capabilities change frequently
                     if (currentTs - routine.lastTriggeredTs > 60_000) {
+                        val audioManager = getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+                        val currentRingerMode = audioManager.ringerMode
+                        val prevSilent = currentRingerMode == android.media.AudioManager.RINGER_MODE_SILENT || currentRingerMode == android.media.AudioManager.RINGER_MODE_VIBRATE
+                        val prevMedia = audioManager.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
+                        val prevAlarm = audioManager.getStreamVolume(android.media.AudioManager.STREAM_ALARM)
+                        val prevRing = audioManager.getStreamVolume(android.media.AudioManager.STREAM_RING)
+
                         RoutineActionHandler.executeRoutine(this@RoutineService, routine)
-                        Graph.repository.update(routine.copy(lastTriggeredTs = currentTs))
+                        Graph.repository.update(routine.copy(lastTriggeredTs = currentTs, isActive = true, previousIsSilentMode = prevSilent, previousMediaVolume = prevMedia, previousAlarmVolume = prevAlarm, previousRingtoneVolume = prevRing))
+                    }
+                } else if (routine.isActive && !isConnectedToTarget) {
+                    if (routine.revertOnEnd) {
+                        // We are no longer connected to the target wifi
+                        val currentTs = System.currentTimeMillis()
+                        if (currentTs - routine.lastTriggeredTs > 60_000) {
+                            RoutineActionHandler.executeRoutine(this@RoutineService, routine, isReverting = true)
+                            Graph.repository.update(routine.copy(isActive = false))
+                        }
+                    } else {
+                        Graph.repository.update(routine.copy(isActive = false))
                     }
                 }
             }

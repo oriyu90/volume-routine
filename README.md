@@ -8,6 +8,7 @@ Volume Routine is a lightweight, background-running Android application that aut
 - **Manual Trigger**: Execute volume changes with a tap of a button.
 - **Silent Mode (DND)**: Automatically enable Do Not Disturb mode.
 - **Volume Control**: Precisely adjust the Media, Alarm, and Ringtone volumes independently.
+- **Revert to Original (New in v1.0.1)**: Set an "End Time" or configure the app to revert volumes back to what they were before the routine was triggered (when disconnecting from Wi-Fi or reaching the end time).
 - **Lightweight & Battery Efficient**: Designed to run efficiently in the background.
 
 ## How to Use
@@ -16,13 +17,14 @@ Volume Routine is a lightweight, background-running Android application that aut
    - Tap the `+` floating action button.
    - Enter a name for the routine.
    - Select a trigger constraint (`TIME`, `WIFI`, or `MANUAL`).
-   - Configure the corresponding trigger condition (e.g., time and days, or the specific Wi-Fi SSID).
-   - Scroll down to set the "Actions". You can enable Silent Mode, or set exact volume percentages for Media, Alarm, and Ringtone.
+   - Configure the corresponding trigger condition (e.g., time and days using the built-in time picker, or the specific Wi-Fi SSID).
+   - Set an optional End Time or Disconnect constraint, and select "Revert to original settings" if you'd like your device states to be completely restored after the routine ends.
+   - Scroll down to set the "Actions". You can enable Silent Mode, or set exact volume percentages.
    - Save the routine. The routine will become active immediately if enabled.
 3. **Manage Routines**: You can toggle routines on and off, manually run them using "Run Now", or delete them from the main screen.
 
 ## Installation
-A pre-built APK is available in the root of the source code (`VolumeRoutine_v1.0.0.apk`).
+A pre-built APK is available in the root of the source code (`VolumeRoutine_v1.0.1.apk`).
 You can transfer it to your Android device and install it directly.
 
 ## License

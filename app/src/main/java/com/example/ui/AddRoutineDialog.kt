@@ -20,6 +20,7 @@ fun AddRoutineDialog(
     onDismiss: () -> Unit,
     onSave: (Routine) -> Unit
 ) {
+    val context = androidx.compose.ui.platform.LocalContext.current
     var name by remember { mutableStateOf("") }
     var triggerType by remember { mutableStateOf("WIFI") }
     var ssid by remember { mutableStateOf("") }
@@ -30,8 +31,15 @@ fun AddRoutineDialog(
     var ringtoneVolume by remember { mutableStateOf(-1f) }
     var hour by remember { mutableStateOf(-1) }
     var minute by remember { mutableStateOf(-1) }
-    var daysOfWeek by remember { mutableStateOf("") }
+    val daysOfWeekSet = remember { mutableStateListOf<Int>() }
     
+    var hasEndTime by remember { mutableStateOf(false) }
+    var endHour by remember { mutableStateOf(-1) }
+    var endMinute by remember { mutableStateOf(-1) }
+    var revertOnEnd by remember { mutableStateOf(false) }
+
+    val daysArray = context.resources.getStringArray(R.array.day_initials)
+
     Dialog(
         onDismissRequest = onDismiss,
         properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false)
@@ -65,27 +73,66 @@ fun AddRoutineDialog(
                 }
                 
                 if (triggerType == "TIME") {
-                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                        OutlinedTextField(
-                            value = if (hour == -1) "" else hour.toString(),
-                            onValueChange = { hour = it.toIntOrNull() ?: -1 },
-                            label = { Text(stringResource(R.string.time_hour)) },
-                            modifier = Modifier.weight(1f)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        OutlinedTextField(
-                            value = if (minute == -1) "" else minute.toString(),
-                            onValueChange = { minute = it.toIntOrNull() ?: -1 },
-                            label = { Text(stringResource(R.string.time_minute)) },
-                            modifier = Modifier.weight(1f)
-                        )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(stringResource(R.string.start_time))
+                        Button(onClick = {
+                            val dialog = android.app.TimePickerDialog(context, { _, h, m ->
+                                hour = h
+                                minute = m
+                            }, if (hour != -1) hour else 12, if (minute != -1) minute else 0, true)
+                            dialog.show()
+                        }) {
+                            Text(if (hour == -1) stringResource(R.string.select_time) else String.format("%02d:%02d", hour, minute))
+                        }
                     }
-                    OutlinedTextField(
-                        value = daysOfWeek,
-                        onValueChange = { daysOfWeek = it },
-                        label = { Text(stringResource(R.string.time_days)) },
-                        modifier = Modifier.fillMaxWidth()
-                    )
+
+                    Text(stringResource(R.string.days_of_week))
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                        val dayMap = listOf(1 to daysArray[0], 2 to daysArray[1], 3 to daysArray[2], 4 to daysArray[3], 5 to daysArray[4], 6 to daysArray[5], 7 to daysArray[6])
+                        dayMap.forEach { (code, label) ->
+                            val selected = daysOfWeekSet.contains(code)
+                            FilterChip(
+                                selected = selected,
+                                onClick = {
+                                    if (selected) daysOfWeekSet.remove(code) else daysOfWeekSet.add(code)
+                                },
+                                label = { Text(label) }
+                            )
+                        }
+                    }
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(checked = hasEndTime, onCheckedChange = { hasEndTime = it })
+                        Text(stringResource(R.string.has_end_time))
+                    }
+
+                    if (hasEndTime) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(stringResource(R.string.end_time))
+                            Button(onClick = {
+                                val dialog = android.app.TimePickerDialog(context, { _, h, m ->
+                                    endHour = h
+                                    endMinute = m
+                                }, if (endHour != -1) endHour else 12, if (endMinute != -1) endMinute else 0, true)
+                                dialog.show()
+                            }) {
+                                Text(if (endHour == -1) stringResource(R.string.select_time) else String.format("%02d:%02d", endHour, endMinute))
+                            }
+                        }
+                        
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Checkbox(checked = revertOnEnd, onCheckedChange = { revertOnEnd = it })
+                            Text(stringResource(R.string.revert_on_end))
+                        }
+                    }
                 }
 
                 if (triggerType == "WIFI") {
@@ -95,6 +142,10 @@ fun AddRoutineDialog(
                         label = { Text(stringResource(R.string.wifi_ssid)) },
                         modifier = Modifier.fillMaxWidth()
                     )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(checked = revertOnEnd, onCheckedChange = { revertOnEnd = it })
+                        Text(stringResource(R.string.revert_on_disconnect))
+                    }
                 }
 
                 HorizontalDivider()
@@ -152,7 +203,11 @@ fun AddRoutineDialog(
                                         ringtoneVolume = ringtoneVolume.toInt(),
                                         hour = hour,
                                         minute = minute,
-                                        daysOfWeek = daysOfWeek
+                                        daysOfWeek = daysOfWeekSet.joinToString(","),
+                                        hasEndTime = hasEndTime,
+                                        endHour = endHour,
+                                        endMinute = endMinute,
+                                        revertOnEnd = revertOnEnd
                                     )
                                 )
                             }

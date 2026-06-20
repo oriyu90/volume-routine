@@ -23,6 +23,13 @@
     <string name="time_hour">Hour (0-23)</string>
     <string name="time_minute">Minute (0-59)</string>
     <string name="time_days">Days (1=Sun, 2=Mon... comma sep.)</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="has_end_time">Set End Time</string>
+    <string name="revert_on_end">Revert to original settings at end</string>
+    <string name="revert_on_disconnect">Revert to original settings on disconnect</string>
+    <string name="select_time">Select Time</string>
+    <string name="days_of_week">Days</string>
     <string name="manual_trigger">Manual trigger</string>
     <string name="dnd_permission_req">Do Not Disturb access is required to change volume modes.</string>
     <string name="grant_permission">Grant Permission</string>

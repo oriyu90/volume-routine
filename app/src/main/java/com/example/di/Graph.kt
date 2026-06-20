@@ -18,6 +18,8 @@ object Graph {
             context,
             AppDatabase::class.java,
             "routines.db"
-        ).build()
+        )
+        .fallbackToDestructiveMigration()
+        .build()
     }
 }
