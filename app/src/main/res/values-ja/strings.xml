@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">ボリュームルーチン</string>
+    <string name="no_routines">ルーチンがありません。\n作成して音量を自動化しましょう！</string>
+    <string name="add_routine">ルーチンを追加</string>
+    <string name="delete">削除</string>
+    <string name="run_now">今すぐ実行</string>
+    <string name="silent_mode">サイレントモード</string>
+    <string name="ring">着信音</string>
+    <string name="media">メディア</string>
+    <string name="alarm">アラーム</string>
+    <string name="no_change">変更なし</string>
+    <string name="create_routine">ルーチンを作成</string>
+    <string name="routine_name">ルーチン名</string>
+    <string name="trigger">トリガー</string>
+    <string name="wifi_ssid">Wi-Fi SSID</string>
+    <string name="actions">アクション</string>
+    <string name="enable_silent_mode">サイレントモード（DND）を有効にする</string>
+    <string name="media_volume">メディアの音量</string>
+    <string name="alarm_volume">目覚ましの音量</string>
+    <string name="ringtone_volume">着信音量</string>
+    <string name="cancel">キャンセル</string>
+    <string name="save">保存</string>
+    <string name="time_hour">時 (0-23)</string>
+    <string name="time_minute">分 (0-59)</string>
+    <string name="time_days">曜日 (1=日, 2=月... カンマ区切り)</string>
+    <string name="manual_trigger">手動トリガー</string>
+    <string name="dnd_permission_req">音量モードを変更するには「サイレントモード」へのアクセス権が必要です。</string>
+    <string name="grant_permission">アクセス権を許可する</string>
+    <string name="permission_granted">許可しました</string>
+    <string name="routine_executed">ルーチンを実行しました</string>
+    <string name="monitoring">ルーチンを監視しています…</string>
+</resources>

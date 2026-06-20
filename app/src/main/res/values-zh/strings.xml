@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">音量日常</string>
+    <string name="no_routines">暂无日常。\n创建一个以自动调节您的音量！</string>
+    <string name="add_routine">添加日常</string>
+    <string name="delete">删除</string>
+    <string name="run_now">立即执行</string>
+    <string name="silent_mode">静音模式</string>
+    <string name="ring">铃声</string>
+    <string name="media">媒体</string>
+    <string name="alarm">闹钟</string>
+    <string name="no_change">未更改</string>
+    <string name="create_routine">创建日常</string>
+    <string name="routine_name">日常名称</string>
+    <string name="trigger">触发器</string>
+    <string name="wifi_ssid">Wi-Fi SSID</string>
+    <string name="actions">操作</string>
+    <string name="enable_silent_mode">启用静音模式（勿扰模式）</string>
+    <string name="media_volume">媒体音量</string>
+    <string name="alarm_volume">闹钟音量</string>
+    <string name="ringtone_volume">铃声音量</string>
+    <string name="cancel">取消</string>
+    <string name="save">保存</string>
+    <string name="time_hour">时 (0-23)</string>
+    <string name="time_minute">分 (0-59)</string>
+    <string name="time_days">天 (1=日, 2=一... 逗号分隔)</string>
+    <string name="manual_trigger">手动触发</string>
+    <string name="dnd_permission_req">要更改音量模式，需要获取“勿扰模式”访问权限。</string>
+    <string name="grant_permission">授予权限</string>
+    <string name="permission_granted">已授予</string>
+    <string name="routine_executed">日常已执行</string>
+    <string name="monitoring">正在监控日常…</string>
+</resources>

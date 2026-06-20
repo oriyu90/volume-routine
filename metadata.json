@@ -1,0 +1,6 @@
+{
+  "name": "Volume Routine",
+  "description": "特定の曜日や時間、Wi-Fi接続時に自動で通知をサイレントにし、各種音量を調整するアプリです。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
