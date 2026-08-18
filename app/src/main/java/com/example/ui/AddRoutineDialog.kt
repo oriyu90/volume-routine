@@ -40,6 +40,16 @@ fun AddRoutineDialog(
 
     val daysArray = context.resources.getStringArray(R.array.day_initials)
 
+    // A routine that saves without a usable trigger condition would silently
+    // never fire, with no feedback to the user about why.
+    val validationError: String? = when {
+        name.isBlank() -> null
+        triggerType == "TIME" && hour == -1 -> stringResource(R.string.select_time_required)
+        triggerType == "TIME" && daysOfWeekSet.isEmpty() -> stringResource(R.string.select_day_required)
+        triggerType == "WIFI" && ssid.isBlank() -> stringResource(R.string.ssid_required)
+        else -> null
+    }
+
     Dialog(
         onDismissRequest = onDismiss,
         properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false)
@@ -183,6 +193,14 @@ fun AddRoutineDialog(
                     )
                 }
 
+                if (validationError != null) {
+                    Text(
+                        text = validationError,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
@@ -191,7 +209,7 @@ fun AddRoutineDialog(
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
                         onClick = {
-                            if (name.isNotBlank()) {
+                            if (name.isNotBlank() && validationError == null) {
                                 onSave(
                                     Routine(
                                         name = name,
@@ -212,7 +230,7 @@ fun AddRoutineDialog(
                                 )
                             }
                         },
-                        enabled = name.isNotBlank()
+                        enabled = name.isNotBlank() && validationError == null
                     ) {
                         Text(stringResource(R.string.save))
                     }

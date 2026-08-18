@@ -36,4 +36,9 @@
     <string name="permission_granted">I have granted it</string>
     <string name="routine_executed">Routine Executed</string>
     <string name="monitoring">Monitoring routines...</string>
+    <string name="select_time_required">Please select a start time.</string>
+    <string name="select_day_required">Please select at least one day.</string>
+    <string name="ssid_required">Please enter a Wi-Fi SSID.</string>
+    <string name="delete_routine_confirm_title">Delete Routine?</string>
+    <string name="delete_routine_confirm_message">"%1$s" will be permanently deleted.</string>
 </resources>

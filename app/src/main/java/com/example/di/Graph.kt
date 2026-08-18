@@ -19,7 +19,7 @@ object Graph {
             AppDatabase::class.java,
             "routines.db"
         )
-        .fallbackToDestructiveMigration()
+        .fallbackToDestructiveMigration(dropAllTables = true)
         .build()
     }
 }

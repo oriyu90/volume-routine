@@ -1,0 +1,157 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "a7604656221dea578eb2fb5fea947f53",
+    "entities": [
+      {
+        "tableName": "routines",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `triggerType` TEXT NOT NULL, `daysOfWeek` TEXT NOT NULL, `hour` INTEGER NOT NULL, `minute` INTEGER NOT NULL, `hasEndTime` INTEGER NOT NULL, `endHour` INTEGER NOT NULL, `endMinute` INTEGER NOT NULL, `ssid` TEXT NOT NULL, `isSilentMode` INTEGER NOT NULL, `mediaVolume` INTEGER NOT NULL, `alarmVolume` INTEGER NOT NULL, `ringtoneVolume` INTEGER NOT NULL, `isEnabled` INTEGER NOT NULL, `lastTriggeredTs` INTEGER NOT NULL, `revertOnEnd` INTEGER NOT NULL, `isActive` INTEGER NOT NULL, `previousIsSilentMode` INTEGER NOT NULL, `previousMediaVolume` INTEGER NOT NULL, `previousAlarmVolume` INTEGER NOT NULL, `previousRingtoneVolume` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "triggerType",
+            "columnName": "triggerType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "daysOfWeek",
+            "columnName": "daysOfWeek",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hour",
+            "columnName": "hour",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "minute",
+            "columnName": "minute",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasEndTime",
+            "columnName": "hasEndTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endHour",
+            "columnName": "endHour",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endMinute",
+            "columnName": "endMinute",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ssid",
+            "columnName": "ssid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSilentMode",
+            "columnName": "isSilentMode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mediaVolume",
+            "columnName": "mediaVolume",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alarmVolume",
+            "columnName": "alarmVolume",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ringtoneVolume",
+            "columnName": "ringtoneVolume",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isEnabled",
+            "columnName": "isEnabled",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastTriggeredTs",
+            "columnName": "lastTriggeredTs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "revertOnEnd",
+            "columnName": "revertOnEnd",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isActive",
+            "columnName": "isActive",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "previousIsSilentMode",
+            "columnName": "previousIsSilentMode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "previousMediaVolume",
+            "columnName": "previousMediaVolume",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "previousAlarmVolume",
+            "columnName": "previousAlarmVolume",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "previousRingtoneVolume",
+            "columnName": "previousRingtoneVolume",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a7604656221dea578eb2fb5fea947f53')"
+    ]
+  }
+}

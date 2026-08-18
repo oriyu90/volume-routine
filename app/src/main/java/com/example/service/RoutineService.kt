@@ -1,6 +1,5 @@
 package com.example.service
 
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
@@ -15,11 +14,13 @@ import android.net.NetworkRequest
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.IBinder
+import androidx.core.app.NotificationCompat
 import com.example.R
 import com.example.di.Graph
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
@@ -52,7 +53,9 @@ class RoutineService : Service() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
-        val notification = Notification.Builder(this, "volume_routine_channel")
+        // NotificationCompat.Builder(context, channelId) is safe on minSdk 24; the
+        // platform Notification.Builder(context, channelId) overload requires API 26.
+        val notification = NotificationCompat.Builder(this, "volume_routine_channel")
             .setContentTitle(getString(R.string.app_name))
             .setContentText(getString(R.string.monitoring))
             .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -84,6 +87,7 @@ class RoutineService : Service() {
         super.onDestroy()
         unregisterReceiver(timeReceiver)
         connectivityManager.unregisterNetworkCallback(networkCallback)
+        serviceScope.cancel()
     }
 
     override fun onBind(intent: Intent?): IBinder? = null

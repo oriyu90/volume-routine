@@ -36,4 +36,9 @@
     <string name="permission_granted">許可しました</string>
     <string name="routine_executed">ルーチンを実行しました</string>
     <string name="monitoring">ルーチンを監視しています…</string>
+    <string name="select_time_required">開始時間を選択してください。</string>
+    <string name="select_day_required">曜日を1つ以上選択してください。</string>
+    <string name="ssid_required">Wi-Fi SSIDを入力してください。</string>
+    <string name="delete_routine_confirm_title">ルーチンを削除しますか？</string>
+    <string name="delete_routine_confirm_message">「%1$s」を完全に削除します。</string>
 </resources>

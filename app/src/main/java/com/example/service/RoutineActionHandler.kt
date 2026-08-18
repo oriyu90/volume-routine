@@ -27,8 +27,9 @@ object RoutineActionHandler {
                 if (routine.previousAlarmVolume != -1) {
                     audioManager.setStreamVolume(AudioManager.STREAM_ALARM, routine.previousAlarmVolume, 0)
                 }
+                // STREAM_RING can only be touched with DND access (see setRingVolumeSafely).
                 if (routine.previousRingtoneVolume != -1 && !routine.previousIsSilentMode) {
-                    audioManager.setStreamVolume(AudioManager.STREAM_RING, routine.previousRingtoneVolume, 0)
+                    setRingVolumeSafely(audioManager, routine.previousRingtoneVolume, dndAccess)
                 }
             } else {
                 // Set Silent Mode (DND)
@@ -63,9 +64,26 @@ object RoutineActionHandler {
                 if (routine.ringtoneVolume != -1 && !routine.isSilentMode) {
                     val maxRing = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING)
                     val targetVol = (routine.ringtoneVolume.toFloat() / 100 * maxRing).toInt()
-                    audioManager.setStreamVolume(AudioManager.STREAM_RING, targetVol, 0)
+                    setRingVolumeSafely(audioManager, targetVol, dndAccess)
                 }
             }
+        }
+    }
+
+    /**
+     * Changing STREAM_RING (especially towards 0) without notification policy
+     * access throws SecurityException on Android 6+. Skip instead of crashing
+     * when DND access hasn't been granted.
+     */
+    private fun setRingVolumeSafely(audioManager: AudioManager, targetVol: Int, dndAccess: Boolean) {
+        if (!dndAccess) {
+            Log.w("RoutineAction", "Skipping ringtone volume change: DND access not granted.")
+            return
+        }
+        try {
+            audioManager.setStreamVolume(AudioManager.STREAM_RING, targetVol, 0)
+        } catch (e: SecurityException) {
+            Log.w("RoutineAction", "Failed to set ringtone volume", e)
         }
     }
 }

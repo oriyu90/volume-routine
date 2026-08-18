@@ -58,6 +58,13 @@ android {
   testOptions { unitTests { isIncludeAndroidResources = true } }
 }
 
+// Room schema history (see AppDatabase.kt: exportSchema = true). Commit the
+// generated JSON files under app/schemas/ so future version bumps can be
+// written as real Migrations instead of a destructive fallback.
+ksp {
+  arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 // Configure the Secrets Gradle Plugin to use .env and .env.example files
 // to match the convention used in Web projects.
 secrets {

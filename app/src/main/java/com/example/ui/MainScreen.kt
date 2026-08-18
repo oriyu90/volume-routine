@@ -128,6 +128,32 @@ fun RoutineCard(
     onDelete: () -> Unit,
     onRunNow: () -> Unit
 ) {
+    var showDeleteConfirm by remember { mutableStateOf(false) }
+
+    if (showDeleteConfirm) {
+        AlertDialog(
+            onDismissRequest = { showDeleteConfirm = false },
+            title = { Text(stringResource(R.string.delete_routine_confirm_title)) },
+            text = { Text(stringResource(R.string.delete_routine_confirm_message, routine.name)) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showDeleteConfirm = false
+                        onDelete()
+                    },
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                ) {
+                    Text(stringResource(R.string.delete))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteConfirm = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        )
+    }
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -192,7 +218,7 @@ fun RoutineCard(
 
             Spacer(modifier = Modifier.height(16.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                TextButton(onClick = onDelete, colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)) {
+                TextButton(onClick = { showDeleteConfirm = true }, colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)) {
                     Text(stringResource(R.string.delete))
                 }
                 Spacer(modifier = Modifier.width(8.dp))

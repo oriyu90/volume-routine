@@ -36,4 +36,9 @@
     <string name="permission_granted">已授予</string>
     <string name="routine_executed">日常已执行</string>
     <string name="monitoring">正在监控日常…</string>
+    <string name="select_time_required">请选择开始时间。</string>
+    <string name="select_day_required">请至少选择一天。</string>
+    <string name="ssid_required">请输入Wi-Fi SSID。</string>
+    <string name="delete_routine_confirm_title">删除日常？</string>
+    <string name="delete_routine_confirm_message">将永久删除"%1$s"。</string>
 </resources>
