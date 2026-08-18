@@ -35,7 +35,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Volume Routine","alternateName":"ボリュームルーチン","applicationCategory":"UtilitiesApplication","operatingSystem":"Android 7.0 or later","softwareVersion":"1.1.0","url":"https://volume-routine.pages.dev/","downloadUrl":"https://github.com/oriyu90/volume-routine/releases","codeRepository":"https://github.com/oriyu90/volume-routine","license":"https://github.com/oriyu90/volume-routine/blob/main/LICENSE.md","description":"曜日・時刻、Wi-Fi接続、手動操作をきっかけにAndroid端末の音量とおやすみモードを自動調整するアプリ。","inLanguage":["ja","en","zh"],"offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"author":{"@id":"https://oriyu90.github.io/official/#person"}},{"@type":"Person","@id":"https://oriyu90.github.io/official/#person","name":"折田悠希","alternateName":["おりたゆうき","Yuki_Orita"],"url":"https://oriyu90.github.io/official/","sameAs":["https://github.com/oriyu90","https://x.com/InovateofRIZI"]}]}</script>
 <header class="site-header">
 <a class="brand" href="#top" aria-label="Volume Routine トップへ"><span class="brand-mark" aria-hidden="true">VR</span><span>VOLUME ROUTINE</span></a>
-<nav aria-label="メインナビゲーション"><a href="#features">機能</a><a href="#start">使い方</a><a href="#maintenance">保守情報</a></nav>
+<nav aria-label="メインナビゲーション"><a href="#features">機能</a><a href="#start">使い方</a></nav>
 <a class="header-cta" href="https://github.com/oriyu90/volume-routine" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
 </header>
 <section class="hero" id="top">
@@ -133,24 +133,6 @@
 <strong>インストールについて</strong>
 <p>最新版 v1.1.0 の署名済みAPKをGitHub Releasesで配布しています。ソースコードも公開しているので、安心して導入前に確認できます。</p>
 <a href="https://github.com/oriyu90/volume-routine/releases/latest" target="_blank" rel="noreferrer">Releasesで確認 ↗</a>
-</div>
-</section>
-<section class="maintenance" id="maintenance">
-<div class="maintenance-heading">
-<p class="section-label">MAINTAINER NOTES</p>
-<h2>次の更新で、<br>迷わないために。</h2>
-<p>2026年8月18日時点のリポジトリを元に、公開情報の更新箇所と確認項目を整理しました。</p>
-</div>
-<div class="maintenance-grid">
-<article><span class="maint-index">01 / VERSION</span><h3>同じ版数を保つ</h3><p><code>app/build.gradle.kts</code>のversionName / versionCode、README、サイト、リリース名を同時に更新します。</p></article>
-<article><span class="maint-index">02 / QUALITY</span><h3>実機の時間とWi-Fiで確認</h3><p>開始・終了時刻、曜日、SSID接続/切断、復元、再起動後、権限拒否時を重点的にテストします。</p></article>
-<article><span class="maint-index">03 / RELEASE</span><h3>署名と配布物を検証</h3><p>署名鍵とパスワードはSecret管理し、APKの証明書、SHA-256、動作対象OSを公開前に確認します。</p></article>
-<article><span class="maint-index">04 / WEBSITE</span><h3>最後にWebを合わせる</h3><p>機能、版数、対応OS、ダウンロード導線、JSON-LD、OG画像、sitemapをリリース後に合わせます。</p></article>
-</div>
-<div class="maintenance-footer">
-<div><span>STACK</span><strong>Kotlin · Jetpack Compose · Room</strong></div>
-<div><span>PACKAGE</span><strong>com.aistudio.volumeroutine.plxmzc</strong></div>
-<div><span>SOURCE CHECKED</span><strong>2026.08.18</strong></div>
 </div>
 </section>
 <section class="cta-section">
