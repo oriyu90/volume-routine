@@ -6,6 +6,15 @@ Volume Routine is a lightweight, background-running Android application that aut
 
 ## English
 
+### What's New in v1.1.0
+
+* Fixed a crash that could occur on Android 7.0/7.1 devices when the background service started.
+* Fixed a crash that could occur when changing the ringtone volume without Do Not Disturb access granted.
+* Routines can no longer be saved without a usable trigger (missing time, days, or Wi-Fi SSID) that would otherwise silently never run.
+* Do Not Disturb permission status now refreshes automatically when you return to the app.
+* Deleting a routine now asks for confirmation first.
+* Internal stability and data-safety improvements (background service cleanup, safer database upgrades).
+
 ### Features
 
 * **Time Trigger**: Automatically change volume settings at a specific time and day(s) of the week.
@@ -41,10 +50,10 @@ Volume Routine is a lightweight, background-running Android application that aut
 
 ### Installation
 
-A pre-built APK is included in the repository:
+Download the pre-built APK from the [Releases page](https://github.com/oriyu90/volume-routine/releases/latest):
 
 ```
-VolumeRoutine_v1.0.1.apk
+Volume.routine.v1.1.0.apk
 ```
 
 Transfer it to your Android device and install it directly.
@@ -64,6 +73,15 @@ Transfer it to your Android device and install it directly.
 * 手動実行
 
 学校・職場・自宅など、利用シーンに合わせて音量設定を自動化できます。
+
+## v1.1.0の新機能・修正内容
+
+* Android 7.0/7.1端末でバックグラウンドサービス起動時にクラッシュすることがあった不具合を修正
+* おやすみモード（DND）の権限を許可していない状態で着信音量を変更するとクラッシュすることがあった不具合を修正
+* 時間・曜日・Wi-Fi SSIDが未設定のまま保存でき、無言で一切発火しないルーチンが作成できてしまう不具合を修正
+* 設定画面からアプリに戻った際、おやすみモードの許可状態を自動で再確認するように変更
+* ルーチン削除時に確認ダイアログを表示するように変更
+* 内部的な安定性・データ保護の改善（バックグラウンドサービスのクリーンアップ、より安全なデータベース更新処理）
 
 ## 主な機能
 
@@ -146,10 +164,10 @@ Transfer it to your Android device and install it directly.
 
 ## インストール
 
-リポジトリ内にある
+[Releasesページ](https://github.com/oriyu90/volume-routine/releases/latest)からビルド済みAPKをダウンロードしてください。
 
 ```
-VolumeRoutine_v1.0.1.apk
+Volume.routine.v1.1.0.apk
 ```
 
 をAndroid端末へ転送してインストールしてください。
@@ -169,6 +187,15 @@ VolumeRoutine_v1.0.1.apk
 * 手动执行
 
 非常适合在学校、办公室、家中等不同场景下自动切换音量配置。
+
+## v1.1.0 新增功能与修复
+
+* 修复了在 Android 7.0/7.1 设备上后台服务启动时可能崩溃的问题
+* 修复了在未授予勿扰模式权限的情况下更改铃声音量可能导致崩溃的问题
+* 修复了未设置时间、星期或 Wi-Fi SSID 也能保存日常、导致其永远不会触发却没有任何提示的问题
+* 从设置页面返回应用时，现在会自动重新检查勿扰模式的授权状态
+* 删除日常前现在会弹出确认对话框
+* 内部稳定性与数据安全性改进（后台服务清理、更安全的数据库升级流程）
 
 ## 功能
 
@@ -249,10 +276,10 @@ VolumeRoutine_v1.0.1.apk
 
 ## 安装
 
-仓库根目录提供：
+请从 [Releases 页面](https://github.com/oriyu90/volume-routine/releases/latest) 下载编译好的 APK：
 
 ```
-VolumeRoutine_v1.0.1.apk
+Volume.routine.v1.1.0.apk
 ```
 
 复制到 Android 设备即可安装。
